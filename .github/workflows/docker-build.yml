@@ -1,0 +1,29 @@
+name: Build and Test Docker Image
+
+on:
+  push:
+    branches: [ "main" ] # Trigger the workflow on pushes to the "main" branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          docker build -t forecastronaut .
+
+      - name: Run Tests 
+        run: |
+          # Add your test commands here (e.g., pytest)
+          # For example: 
+          # pytest 
+
+      #- name: Push to Docker Hub (Optional)
+        # Uncomment and configure this step if you want to push the image to Docker Hub
+        # run: |
+        #   docker login -u <your_dockerhub_username> -p <your_dockerhub_password>
+        #   docker push forecastronaut
