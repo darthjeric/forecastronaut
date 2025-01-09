@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import requests
-from config import API_KEY
+#from config import API_KEY
 import os
 
 app = Flask(__name__)
