@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Replace with your actual OpenWeatherMap API key
 #OPENWEATHERMAP_API_KEY = API_KEY
-OPENWEATHERMAP_API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+OPENWEATHER_API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
 @app.route('/')
 def index():
@@ -19,7 +19,7 @@ def get_weather():
     country_code = request.form.get('country_code', '')
 
     print(os.environ.get('OPENWEATHERMAP_API_KEY'))
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city},{country_code}&appid={OPENWEATHERMAP_API_KEY}"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city},{country_code}&appid={OPENWEATHER_API_KEY}"
 
     try:
         response = requests.get(url).json()
@@ -30,6 +30,7 @@ def get_weather():
 
     if response:
         if response['cod'] == 200:
+            raise ValueError(f"API Error: {response['message']}")
             temperature_kelvin = response['main']['temp']
             temperature_celsius = temperature_kelvin - 273.15
             weather = {
