@@ -24,7 +24,8 @@ def get_weather():
         response = requests.get(url).json()
     except requests.exceptions.RequestException as e:
         print(f"Error connecting to OpenWeatherMap API: {e}")
-        return render_template('error.html', error="Error fetching weather data.")
+        error="Error fetching weather data."
+        return render_template('error.html', error=error)
 
     if response:
         if response['cod'] == 200:
