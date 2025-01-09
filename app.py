@@ -18,6 +18,7 @@ def get_weather():
     city = request.form['city']
     country_code = request.form.get('country_code', '')
 
+    print(os.environ.get('OPENWEATHERMAP_API_KEY'))
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city},{country_code}&appid={OPENWEATHERMAP_API_KEY}"
 
     try:
@@ -25,7 +26,7 @@ def get_weather():
     except requests.exceptions.RequestException as e:
         print(f"Error connecting to OpenWeatherMap API: {e}")
         error="Error fetching weather data."
-        return render_template('error.html', error=error)
+        #return render_template('error.html', error=error)
 
     if response:
         if response['cod'] == 200:
@@ -41,10 +42,16 @@ def get_weather():
             return render_template('weather.html', **weather)  # Pass data as keyword arguments
         else:
             print(f"Error: {response['message']}")
-            return render_template('error.html', error=error)
+            error = "Error retrieving weather information from API."
+            #return render_template('error.html', error=error)
     else:
         print("No results found for the specified city.")
-        return render_template('error.html', error=error)
+        error = "No results found for the specified city."
+        #return render_template('error.html', error=error)
+
+    # Handle cases where an error occurred
+    if error:
+        return render_template('error.html', error=error) 
 
 if __name__ == '__main__':
     app.run(debug=True)
