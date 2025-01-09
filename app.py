@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import requests
 #from config import API_KEY
 import os
+import sys
 
 app = Flask(__name__)
 
@@ -9,6 +10,7 @@ app = Flask(__name__)
 #OPENWEATHERMAP_API_KEY = API_KEY
 OPENWEATHER_API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 print(os.environ.get('OPENWEATHER_API_KEY'))
+print('This is standard output', file=sys.stdout)
 
 @app.route('/')
 def index():
