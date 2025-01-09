@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 import requests
 from config import API_KEY
+import os
 
 app = Flask(__name__)
 
 # Replace with your actual OpenWeatherMap API key
-OPENWEATHERMAP_API_KEY = API_KEY
+#OPENWEATHERMAP_API_KEY = API_KEY
+OPENWEATHERMAP_API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
 @app.route('/')
 def index():
